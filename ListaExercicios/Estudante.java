@@ -3,17 +3,17 @@ package ListaExercicios;
 import java.util.Scanner;
 
 public class Estudante {
-    // Atributos privados [cite: 18]
-    private String nome; // [cite: 19]
-    private double[] notas; // [cite: 20]
+    // --- ATRIBUTOS PRIVADOS (Exercício 2) ---
+    private String nome;
+    private double[] notas;
 
-    // Construtor: recebe o nome e dimensiona o array de notas em 5 
+    // --- CONSTRUTOR (Exercício 2) ---
     public Estudante(String nome) {
         this.nome = nome;
-        this.notas = new double[5]; // 
+        this.notas = new double[5];
     }
 
-    // Método para ler do teclado as 5 notas 
+    // --- MÉTODOS DO EXERCÍCIO 2 ---
     public void insereNotas() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("--- Digite as 5 notas do estudante " + this.nome + " ---");
@@ -24,7 +24,6 @@ public class Estudante {
         }
     }
 
-    // Método que calcula e devolve a média aritmética 
     public double calculaMedia() {
         double soma = 0;
         for (double nota : this.notas) {
@@ -33,17 +32,14 @@ public class Estudante {
         return soma / this.notas.length;
     }
 
-    // Getter para o nome
     public String getNome() {
         return this.nome;
     }
 
-    // Getter para as notas (devolve o array de notas) 
     public double[] getNotas() {
         return this.notas;
     }
 
-    // Método que devolve o valor da menor nota 
     public double menorNota() {
         double menor = this.notas[0];
         for (int i = 1; i < this.notas.length; i++) {
@@ -52,5 +48,39 @@ public class Estudante {
             }
         }
         return menor;
+    }
+
+    // --- MÉTODO DO EXERCÍCIO 3 ---
+    public static Estudante[] filtraAprovados(Estudante[] turma) {
+        if (turma == null || turma.length == 0) {
+            return null;
+        }
+
+        // 1. Conta quantos estudantes foram aprovados (média >= 6.0)
+        int quantidadeAprovados = 0;
+        for (Estudante e : turma) {
+            if (e != null && e.calculaMedia() >= 6.0) {
+                quantidadeAprovados++;
+            }
+        }
+
+        // 2. Se nenhum foi aprovado, devolve null (requisito da questão)
+        if (quantidadeAprovados == 0) {
+            return null;
+        }
+
+        // 3. Cria o novo array com o tamanho exato dos aprovados
+        Estudante[] aprovados = new Estudante[quantidadeAprovados];
+        int indice = 0;
+
+        // 4. Preenche o novo array apenas com os aprovados
+        for (Estudante e : turma) {
+            if (e != null && e.calculaMedia() >= 6.0) {
+                aprovados[indice] = e;
+                indice++;
+            }
+        }
+
+        return aprovados;
     }
 }
