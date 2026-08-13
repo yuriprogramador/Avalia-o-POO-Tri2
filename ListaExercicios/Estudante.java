@@ -31,6 +31,28 @@ public class Estudante {
         }
         return soma / this.notas.length;
     }
+    // --- MÉTODOS DO EXERCÍCIO 4 (Sobrecarga de calculaMedia) ---
+    public double calculaMedia(int[] pesos) {
+        // Valida se o array de pesos possui tamanho 5
+        if (pesos == null || pesos.length != 5) {
+            System.out.println("Erro: É necessário fornecer exatamente 5 pesos.");
+            return 0;
+        }
+
+        double somaNotasPesos = 0;
+        int somaPesos = 0;
+
+        for (int i = 0; i < this.notas.length; i++) {
+            somaNotasPesos += this.notas[i] * pesos[i];
+            somaPesos += pesos[i];
+        }
+
+        if (somaPesos == 0) {
+            return 0;
+        }
+
+        return somaNotasPesos / somaPesos;
+    }
 
     public String getNome() {
         return this.nome;
